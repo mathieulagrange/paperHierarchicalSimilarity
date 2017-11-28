@@ -11,7 +11,7 @@ function [config, store, obs] = taun1features(config, setting, data)
 % Date: 17-Dec-2016
 
 % Set behavior for debug mode
-if nargin==0, unsupervised('do', 1, 'mask', {3 1}); return; else store=[]; obs=[]; end
+if nargin==0, unsupervised('do', 1, 'mask', {2}); return; else store=[]; obs=[]; end
 
 %% setting
 store.xp_settings.sr=44100;
@@ -22,6 +22,7 @@ switch setting.features
     case 'scatT'
         switch setting.dataset
             case '2013'
+                 store.xp_settings.hoptime = 1;
                 fileId = fopen([config.inputPath 'dcase2013/sampleList_train.txt']);
                 store.xp_settings.sounds=textscan(fileId,'%s');
                 store.xp_settings.sounds=store.xp_settings.sounds{1};
@@ -90,12 +91,12 @@ switch setting.features
                 %% load sound
                 
                 store.xp_settings.soundIndex = 1:100;
-            case {'2016all', '2016', '2017all', '2017'}
+            case {'2016', '2017'}
                 fid = fopen([config.inputPath 'dcase201' setting.dataset(4) '/metaDev.txt' ]);
                 C = textscan(fid, '%s\t%s\t%s');
                 devFiles = C{1};
                 fclose(fid);
-              
+                
                 
                 fid = fopen([config.inputPath 'dcase201' setting.dataset(4) '/meta.txt' ]);
                 C = textscan(fid, '%s\t%s\t%s');
@@ -111,9 +112,7 @@ switch setting.features
                     store.xp_settings.recStart(k) = str2num(info{2});
                     store.xp_settings.recEnd(k) = str2num(info{3});
                     
-                    if  strcmp(setting.dataset(5:end), 'all') || ~isempty(strfind(store.xp_settings.sounds{k}, '_0_'))
-                        store.xp_settings.soundIndex(end+1) = k;
-                    end
+                    store.xp_settings.soundIndex(end+1) = k;
                     if ~strcmp(typo{k}, store.xp_settings.classes)
                         store.xp_settings.classes{end+1} = typo{k};
                     end
@@ -213,7 +212,7 @@ switch setting.features
                     
                     soundname=soundname(strfind(soundname,'/')+1:end);
                     store.class(jj)=find(strcmp(soundname,store.xp_settings.classes));
-                case {'2016all', '2016', '2017all', '2017'}
+                case {'2016', '2017'}
                     store.class(jj)=find(strcmp(typo{store.xp_settings.soundIndex(jj)}, store.xp_settings.classes));
                     store.filter(jj)=any(strcmp([store.xp_settings.sounds{store.xp_settings.soundIndex(jj)} '.wav'], devFiles));
             end

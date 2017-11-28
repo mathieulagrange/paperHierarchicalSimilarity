@@ -1,9 +1,9 @@
-dataset === {'2013', '2016', '2016all', '2017', '2017all'}
-features === {'mfcc','scatT', 'scatTime'}
-scat_log =2:=2/2= [0 1]
-integration =3:== {'early','clustering', 'gmm', 'close'}
-clustering_nbc =3:=4/[2 4]= [0 1 2 4 8 16 32 64]
-similarity_nn =4:=4/[1 2 4]= [.1:.2:.7 1:20 0]
-similarity_dist =4:=4/2= {'emd','average','closest'}
-precision =5== 1:9
-d_nn =5== [0 1:20 .1:.2:.7]
+dataset === {'2013', '2016', '2017'} % dcase datatsets
+features === {'mfcc', 'scatT'} % type of feature
+sim =2:== {'gmm', 'close', 'early', 'dtw'} % similarity method
+texture =2:=1/[2 3]= [10 30 60 120] % duration in seconds of the texture window
+pooling =2:=3/2= [0 10 25 50 100] %  duration of pooling in centi seconds (0: no pooling eg. 25ms framing)
+integration =2:=3/2= [0 5 10 20 50 100] %  (0: no integration, 20: clustering in 5 clusters, 100: 1 feature frame per texture window)
+precision =4== 1:9 % performance criterion range
+nbSamples =3:=3/1= [500 2000] % number of samples in mcmc similarity computation
+group =6== {'kaverages', 'kkmeans'}

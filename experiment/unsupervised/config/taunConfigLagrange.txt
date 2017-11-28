@@ -32,7 +32,7 @@ inputPath  = /data/databases/environment/dcaseScene
 % path to the code repository of the experiment (diamond operator <> do not replace unless you do not want expLanes to fill this field automatically)
 codePath  = 
 % path to the data repository of the experiment (structured with one directory per step)
-dataPath  = /data/experiments/unsupervised
+dataPath  = /data/experiments/hSim
 % path to the data repository of the experiment for observation data (same as dataPath if left blank)
 obsPath  = 
 % path to store backups of data
@@ -47,7 +47,7 @@ toolPath  =
 %% CODE
 
 % code dependencies to load and send server side as a cell array of strings with paths to the dependencies
-dependencies  = {'~/misc/research/thirdParty/toolbox/boflib', '../experiment_code', '~/tools/expLanes/lib', '~/tools/scattering.m'}
+dependencies  = {'~/misc/research/thirdParty/toolbox/boflib', '/home/lagrange/experiments/tetci17/experiments/experiment_code', '~/tools/expLanes/lib', '~/tools/scattering.m', '~/misc/houle/dev/tools/clusteringAlgorithms'}
 % dependencies (including expLanes) can be part of the experiment in a dependencies directory: 0 do not use local versions, 1 use local versions, 2 update local versions
 localDependencies  = 0
 % version tag of the code of the experiment
@@ -127,7 +127,7 @@ pdfViewer  =
 % threshold for statistical significance testing
 significanceThreshold  = 0.05
 % show the factors graph in the report: 0, no display, 1 compact display, 2 also show stored data, 3 also show observations, 4 also show stored data and observations (if negative only generate the figure for later inclusion)
-showFactorsInReport  = 0
+showFactorsInReport  = 4
 % style of the factor graph: 0 no propagation of factors, 1 propagation of factors, 2 propagation of factors with an "all steps" node
 factorDisplayStyle  = 0
 % path where saved figures are copied outside the expLanes project
