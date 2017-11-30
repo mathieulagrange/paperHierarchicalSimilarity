@@ -61,7 +61,9 @@ switch setting.sim
         for k=1:length(data.class)
             vec=[];
             for m=k+1:length(data.class)
-                vec(m) = dtw_c(data.centroid(:, data.indSample==k)', data.centroid(:, data.indSample==m)');
+                M = simmx(data.centroid(:, data.indSample==k), data.centroid(:, data.indSample==m));
+                [~, ~, C] = dpfast(1-M);
+                vec(m) = C(size(C,1),size(C,2));
             end
             for m=k+1:length(data.class)
                 d(n) = vec(m);

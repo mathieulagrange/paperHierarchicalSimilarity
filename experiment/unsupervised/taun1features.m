@@ -19,7 +19,7 @@ store.xp_settings.classes = {'bus','busystreet','office','openairmarket','park',
 store.filter = [];
 
 switch setting.features
-    case 'scatT'
+    case 'scatTload'
         switch setting.dataset
             case '2013'
                  store.xp_settings.hoptime = 1;
@@ -63,7 +63,7 @@ switch setting.features
             case '2106'
                 
         end
-    case {'mfcc', 'scatTime'}
+    case {'mfcc', 'scatT'}
         
         %% setting framing
         
@@ -128,7 +128,7 @@ switch setting.features
         store.indSample=[];
         
         switch setting.features
-            case 'scatTime'
+            case 'scatT'
                 % Prepare scattering "architectures", i.e. filter banks and nonlinearities
                 Q1=8;
                 opts{1}.time.nFilters_per_octave = Q1;
@@ -183,7 +183,7 @@ switch setting.features
                     
                     % store features
                     store.features = [store.features ftrs.mfcc];
-                case 'scatTime'
+                case 'scatT'
                     waveform = signal;
                     chunks = cat(2, ...
                         waveform(0*hop_length + chunk_range, :, :), ...

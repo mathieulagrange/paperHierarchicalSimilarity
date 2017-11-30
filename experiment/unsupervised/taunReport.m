@@ -6,27 +6,33 @@ function config = taunReport(config)
 % Copyright: gregoirelafay
 % Date: 17-Dec-2016
 
-if nargin==0, unsupervised('report', 'r', 'reportName', 'group'); return; end
+if nargin==0, unsupervised('report', 'r', 'reportName', 'scat'); return; end
 
 switch config.reportName
+    case 'scat'
+        m=2;
+        for k=1:3
+            if k==3, m=1; end
+            config = expExpose(config, 't', 'mask', {k 0 0 m 1 2 0 1}, 'step', 6, 'obs', 1, 'percent', 1, 'sort', 1);
+        end
     case 'group'
         m=2;
         for k=1:3
-        if k==3, m=1; end
-        config = expExpose(config, 't', 'mask', {k 1 [1 2 3] m 1 2 0 1}, 'step', 6, 'obs', 1, 'percent', 1, 'sort', 1);
+            if k==3, m=1; end
+            config = expExpose(config, 't', 'mask', {k 1 0 m 1 2 0 1}, 'step', 6, 'obs', 1, 'percent', 1, 'sort', 1);
         end
     case 'paper'
         % baselines for every datasets
         % 2013
-        config = expExpose(config, 'p', 'mask', {1 0 0 0 5 1}, 'step', 4, 'expand', 'precision', 'obs', 1, 'percent', 1);
+        config = expExpose(config, 'p', 'mask', {1 1 0 0 5 1}, 'step', 4, 'expand', 'precision', 'obs', 1, 'percent', 1);
         % 2016
-        config = expExpose(config, 'p', 'mask', {2 0 0 2:4 5 1 0 1}, 'step', 4, 'expand', 'precision', 'obs', 1, 'percent', 1, 'marker', {'+', '+', '+', 'o', 'o', 'o', 'd'}, 'color', {'r', 'b', 'k', 'r', 'b', 'k', 'r', 'b', 'k'});
+        config = expExpose(config, 'p', 'mask', {2 1 0 2:3 5 1 0 1}, 'step', 4, 'expand', 'precision', 'obs', 1, 'percent', 1, 'marker', {'+', '+', 'o', 'o', 'd', 'd', 's'}, 'color', {'b', 'k','b', 'k', 'b', 'k', 'b', 'k'});
         % 2017
-        config = expExpose(config, 'p', 'mask', {3 0 0 0 5 1 0 1}, 'step', 4, 'expand', 'precision', 'obs', 1, 'percent', 1, 'marker', {'+', '+', '+', '+', 'o', 'o', 'o', 'o', 'd'}, 'color', {'m', 'r', 'b', 'k', 'm', 'r', 'b', 'k', 'm', 'r', 'b', 'k'});
+        config = expExpose(config, 'p', 'mask', {3 1 0 1:3 5 1 0 1}, 'step', 4, 'expand', 'precision', 'obs', 1, 'percent', 1, 'marker', {'+', '+', '+', 'o', 'o', 'o', 'd', 'd', 'd', 's'}, 'color', {'m', 'b', 'k', 'm', 'b', 'k', 'm', 'b', 'k', 'm', 'b', 'k'});
         % timings
-        config = expExpose(config, 'b', 'mask', {3 0 0 1 5 1 0 1}, 'step', 5, 'obs', [3 2 4], 'orderSetting', [3 2 1]);
+        config = expExpose(config, 't', 'mask', {3 1 0 1 5 1 0 1}, 'step', 5, 'obs', [3 2 4], 'orderSetting', [3 2 1]);
     case 'toto'
-        config = expExpose(config, 't', 'mask', {{2 0 2 2:4 1 2}, {2 0 2 2:4 5 1}}, 'integrate', 'texture', 'obs', 1, 'sort', 1, 'percent', 1);       
+        config = expExpose(config, 't', 'mask', {{2 1 2 2:4 1 2}, {2 0 2 2:4 5 1}}, 'integrate', 'texture', 'obs', 1, 'sort', 1, 'percent', 1);
     otherwise
         for k =1:4
             config = expExpose(config, 'l', 'mask', {2 0 0 k [1 3 5] [2 6] 5 1}, 'negativeRank', 4, 'sort', 3, 'obs', [1 2 4], 'percent', 1);
