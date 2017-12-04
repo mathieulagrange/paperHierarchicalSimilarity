@@ -11,7 +11,7 @@ function [config, store, obs] = taun2clustering(config, setting, data)
 % Date: 17-Dec-2016
 
 % Set behavior for debug mode
-if nargin==0, unsupervised('do', 2:5, 'mask', {1 1 3 0 2 3}); return; else store=[]; obs=[]; end
+if nargin==0, unsupervised('do', 2:5, 'mask', {2 2 [2 3] 2 1 2}); return; else store=[]; obs=[]; end
 
 %% seed
 
@@ -27,6 +27,16 @@ switch setting.dataset
         %         length(unique(data.indSample))
         data = setTextureFrames(data, setting);
         %         length(unique(data.indSample))
+end
+
+switch setting.features
+    case 'scatT'
+        store.features(store.features<0)=0;
+        params.type='scattering';
+        params.ftrsNorm_scat_threshold = 1e2;
+        params.ftrsNorm_scat_selection = 1;
+        params.ftrsNorm_scat_log =  setting.scat_log;
+        [store.features,~] = normScattering(store.features,params);
 end
 
 store=data;
