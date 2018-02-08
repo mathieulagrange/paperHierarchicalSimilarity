@@ -13,7 +13,7 @@ switch config.reportName
         m=2;
         for k=1:3
             if k==3, m=1; end
-            config = expExpose(config, 't', 'mask', {k 0 0 m 1 2 0 1}, 'step', 6, 'obs', 1, 'percent', 1, 'sort', 1);
+            config = expExpose(config, 't', 'mask', {k 0 0 m 1 2 0 1}, 'step', 5, 'obs', 1, 'percent', 1, 'sort', 1);
         end
     case 'group'
         m=2;
